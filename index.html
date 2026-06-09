@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Гвардия — портал The Outer Rim</title>
+  <link rel="stylesheet" href="style.css?v=51" />
+  <link rel="icon" href="logo-avk.svg" type="image/svg+xml" />
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand route-link" href="#/public/homePage" aria-label="Главная">
+      <img src="logo-avk-user.webp" alt="Гвардия" class="brand-logo" />
+      <span>
+        <strong>Гвардия</strong>
+        <small>Портал гвардии The Outer Rim</small>
+      </span>
+    </a>
+
+    <nav class="top-nav" aria-label="Навигация">
+      <a class="nav-btn route-link nav-public active" href="#/public/homePage">Главная</a>
+      <a class="nav-btn route-link nav-public" href="#/public/rosterPage">Состав</a>
+      <a class="nav-btn route-link nav-public" href="#/public/schedulePage">Расписание</a>
+      <a class="nav-btn route-link nav-public" href="#/public/faqPage">FAQ</a>
+
+      <a class="nav-btn route-link nav-internal hidden" href="#/internal/statutePage">Устав</a>
+      <a class="nav-btn route-link nav-internal avk-only hidden" href="#/internal/promotionsPage">Повышения</a>
+      <a class="nav-btn route-link nav-internal hidden" href="#/internal/lecturesPage">Лекции</a>
+      <a class="nav-btn route-link nav-internal avk-only hidden" href="#/internal/violationsPage">Нарушения</a>
+      <a class="nav-btn route-link nav-internal hidden" href="#/internal/reprimandsPage">Выговоры</a>
+      <a class="nav-btn route-link nav-internal hidden" href="#/internal/complaintsPage">Жалобы</a>
+      <a class="nav-btn route-link nav-internal hidden" href="#/internal/internalRosterPage">Состав</a>
+      <a class="nav-btn route-link nav-internal hidden" href="#/internal/internalSchedulePage">Расписание</a>
+      <a class="nav-btn route-link nav-internal admin-only hidden" href="#/internal/logsPage">Логи</a>
+    </nav>
+
+    <div class="top-actions">
+      <div class="section-dropdown">
+        <button class="section-pill" id="sectionSwitchBtn" type="button">
+          <span id="sectionLabel">Публичный раздел</span>
+          <span id="sectionChevron" class="hidden">▾</span>
+        </button>
+        <div class="section-menu hidden" id="sectionMenu">
+          <a class="route-link" href="#/public/homePage">Публичный раздел</a>
+          <a class="route-link" href="#/internal/statutePage">Внутренний раздел</a>
+        </div>
+      </div>
+
+      <button id="currentFighterName" class="user-chip hidden" type="button"></button>
+
+      <button id="loginBtn" class="login-btn" type="button">Вход в базу</button>
+      <button id="logoutBtn" class="logout-btn hidden" type="button">Выйти</button>
+    </div>
+  </div>
+</header>
+
+<button class="side-toggle" id="sideToggle" type="button" aria-label="Открыть боковое меню">
+  <span></span><span></span><span></span>
+</button>
+
+<aside class="side-menu hidden" id="sideMenu" aria-label="Боковое меню">
+  <div class="side-menu-head">
+    <strong>Навигация</strong>
+    <button id="closeSideMenu" type="button" aria-label="Закрыть">×</button>
+  </div>
+
+  <button class="side-group-title" data-side-collapse="publicSide" type="button">Публичный раздел ▾</button>
+  <div class="side-links" id="publicSide">
+    <a class="route-link" href="#/public/homePage">Главная</a>
+    <a class="route-link" href="#/public/rosterPage">Состав</a>
+    <a class="route-link" href="#/public/schedulePage">Расписание</a>
+    <a class="route-link" href="#/public/faqPage">FAQ</a>
+  </div>
+
+  <div id="internalSideGroup" class="hidden">
+    <button class="side-group-title" data-side-collapse="internalSide" type="button">Внутренний раздел ▾</button>
+    <div class="side-links" id="internalSide">
+      <a class="route-link" href="#/internal/statutePage">Устав</a>
+      <a class="route-link avk-only hidden" href="#/internal/promotionsPage">Повышения</a>
+      <a class="route-link" href="#/internal/lecturesPage">Лекции</a>
+      <a class="route-link avk-only hidden" href="#/internal/violationsPage">Нарушения</a>
+      <a class="route-link" href="#/internal/reprimandsPage">Выговоры</a>
+      <a class="route-link" href="#/internal/complaintsPage">Жалобы</a>
+      <a class="route-link" href="#/internal/internalRosterPage">Состав</a>
+      <a class="route-link" href="#/internal/internalSchedulePage">Расписание</a>
+      <a class="route-link admin-only hidden" href="#/internal/logsPage">Логи</a>
+    </div>
+  </div>
+</aside>
+
+<main>
+  <section id="publicPages">
+    <section id="homePage" class="page active">
+      <div class="hero">
+        <div class="card hero-card">
+          <span class="label">Информационный портал</span>
+          <h1>Служебная база гвардии для игроков сервера</h1>
+          <p>Публичный раздел содержит только информационные страницы: главная, состав и расписание.</p>
+          <a class="primary-link" href="https://sites.google.com/view/cwgmod/%D1%83%D1%81%D1%82%D0%B0%D0%B2?authuser=0" target="_blank" rel="noopener">Открыть основной устав сервера</a>
+        </div>
+
+        <div class="card info-card" id="publicAccessCard">
+          <h2>Доступ к внутренней базе</h2>
+          <p id="publicAccessText">Внутренний раздел доступен бойцам после входа в базу.</p>
+          <button class="primary-btn" id="publicAccessLoginBtn" onclick="openLogin()" type="button">Войти в базу</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="rosterPage" class="page">
+      <div class="card section">
+        <div class="section-header">
+          <div><h2>Состав</h2><p>Публичная информационная страница состава.</p></div>
+          <span class="badge red">публично</span>
+        </div>
+        <div class="filter-bar search-filter-grid">
+          <label>Подразделение <select id="publicRosterDivisionFilter"></select></label>
+          <label>Поиск по бойцу <input id="publicRosterSearch" type="search" placeholder="Имя, позывной или логин" /></label>
+          <button class="secondary-btn" id="refreshPublicRosterBtn" type="button">Обновить</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Боец</th><th>Тип</th><th>Подразделение</th><th>Специализация</th><th>Звание</th><th>Лицензии</th><th>Статус</th></tr></thead>
+            <tbody id="publicRosterTableBody"><tr><td colspan="7">Загрузка...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="schedulePage" class="page">
+      <div class="card section">
+        <h2>Расписание</h2>
+        <div class="filter-bar schedule-filter-grid">
+          <label>Период с <input id="publicScheduleFrom" type="date" /></label>
+          <label>по <input id="publicScheduleTo" type="date" /></label>
+          <button class="secondary-btn" id="refreshPublicScheduleBtn" type="button">Обновить</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Тип</th><th>Подразделение</th><th>Начало</th><th>Конец</th><th>Название</th><th>Описание</th></tr></thead>
+            <tbody id="publicScheduleTableBody"><tr><td colspan="6">Загрузка...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="faqPage" class="page">
+      <div class="card section">
+        <div class="section-header">
+          <div><h2>FAQ</h2><p>Раздел вопросов и ответов. Заполним позже.</p></div>
+          <span class="badge gray">публично</span>
+        </div>
+        <div class="placeholder-box">Пока здесь нет вопросов и ответов.</div>
+      </div>
+    </section>
+
+  </section>
+
+  <section id="internalPages" class="hidden">
+    <section id="internalHomePage" class="internal-page">
+      <div class="card section">
+        <div class="section-header">
+          <div><h2>Внутренний раздел</h2><p>Выбери нужную страницу во внутренней навигации.</p></div>
+          <span class="badge red" id="internalRoleBadge">роль</span>
+        </div>
+        <div class="tile-grid">
+          <a class="tile route-link" href="#/internal/reportsPage"><img src="reports.svg" alt="" /><strong>Рапорта</strong><span>Создание и просмотр рапортов.</span></a>
+          <a class="tile route-link" href="#/internal/lecturesPage"><img src="theory.svg" alt="" /><strong>Лекции</strong><span>Просмотр лекционного материала.</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="internalRosterPage" class="internal-page">
+      <div class="card section">
+        <div class="section-header">
+          <div><h2>Состав</h2><p id="internalRosterHint">Подразделения отображаются по правам доступа.</p></div>
+          <div class="header-actions">
+            <button class="primary-btn nav-officer hidden" id="openCreateFighterBtn" type="button">Создать</button>
+            <span class="badge gray" id="rosterAccessBadge">просмотр</span>
+          </div>
+        </div>
+        <div class="filter-bar search-filter-grid">
+          <label id="internalRosterFilterWrap">Подразделение <select id="internalRosterDivisionFilter"></select></label>
+          <label>Поиск по бойцу <input id="internalRosterSearch" type="search" placeholder="Имя, позывной или логин" /></label>
+          <button class="secondary-btn" id="refreshInternalRosterBtn" type="button">Обновить</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Боец</th><th>Тип</th><th>Подразделение</th><th>Специализация</th><th>Звание</th><th>Лицензии</th><th>Статус</th><th>Просмотр</th></tr></thead>
+            <tbody id="internalRosterTableBody"><tr><td colspan="8">Загрузка...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="promotionsPage" class="internal-page">
+      <div class="card section">
+        <div class="section-header">
+          <div>
+            <h2>Повышения</h2>
+            <p>Минимальные требования к повышению бойцов. Командиры подразделений могут дополнять их внутренними условиями.</p>
+          </div>
+          <span class="badge gray">система повышений</span>
+        </div>
+
+        <div class="promo-notice">
+          <strong>Важно:</strong> эта страница описывает правила и условия. Сам рапорт о повышении создаётся на странице «Рапорта» через тип «Повышение».
+        </div>
+
+        <div class="promo-layout">
+          <article class="promo-card full-row">
+            <h3>Общий принцип</h3>
+            <p>Для повышения учитываются срок после предыдущего повышения, участие в событиях, проведение активностей, экзамены, комиссии и должностные назначения. За основу берутся минимальные общесерверные требования, а актуальные дополнительные условия уточняются у офицеров подразделения.</p>
+          </article>
+
+          <article class="promo-card full-row">
+            <h3>Требования по званиям</h3>
+            <div id="promotionRequirementsList" class="promo-requirements-list">
+              <div class="placeholder-box">Загрузка...</div>
+            </div>
+          </article>
+
+          <article class="promo-card">
+            <h3>Что считается сутками</h3>
+            <p>Сутки засчитываются как день активной игры, если боец присутствовал хотя бы в одном рапорте об активности или игровом событии.</p>
+          </article>
+
+          <article class="promo-card">
+            <h3>Что считается событием</h3>
+            <p>Полноценным событием считается ивент от игрового мастера со сменой карты. Ивент без смены карты засчитывается как половина события.</p>
+          </article>
+
+          <article class="promo-card full-row">
+            <h3>Что считается активностью</h3>
+            <p>К активностям относятся мероприятия с другими бойцами: лекции, тренировки и похожие служебные действия. Симуляции засчитываются как половина активности. Посты, патрули на базе и ролевые действия без работы офицера не учитываются. Активность одного типа засчитывается не чаще одного раза за 30 минут.</p>
+          </article>
+
+          <article class="promo-card full-row">
+            <h3>Внеочередные повышения</h3>
+            <p>Еженедельно на собрании командиров подводятся итоги активности подразделений. По результатам могут выдаваться внеочередные повышения.</p>
+            <ul>
+              <li>Самое активное подразделение, кроме Роты Блестящих, может получить до 3 внеочередных повышений.</li>
+              <li>Наименее активное подразделение, кроме Роты Блестящих, может получить до 2 внеочередных повышений не чаще одного раза в месяц.</li>
+              <li>Остальные подразделения могут получить 1 внеочередное повышение.</li>
+              <li>Внеочередное повышение позволяет поднять одного игрока на одно звание без обычной системы требований.</li>
+              <li>Один игрок может получать внеочередное повышение не чаще 1 раза в неделю.</li>
+              <li>Распределять внеочередные повышения могут только командир подразделения или командир Гвардии.</li>
+              <li>Командир подразделения не может выдавать внеочередное повышение себе или бойцам других подразделений.</li>
+              <li>Неиспользованные внеочередные повышения сгорают в конце недели.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="lecturesPage" class="internal-page">
+      <div class="card section">
+        <div class="section-header">
+          <div><h2>Лекции</h2><p>Поиск, создание, редактирование и чтение лекций.</p></div>
+          <div class="header-actions">
+            <button class="primary-btn nav-officer hidden" id="openLectureCreateBtn" type="button">Создать</button>
+            <button class="secondary-btn nav-officer hidden" id="openLectureEditBtn" type="button">Редактировать</button>
+          </div>
+        </div>
+
+        <div class="filter-bar lecture-filter-grid">
+          <label>Поиск по названию лекции <input id="lectureSearchInput" type="search" placeholder="Начни вводить название лекции" /></label>
+          <label>Тип <select id="lectureTypeFilter">
+            <option value="all">Все типы</option>
+            <option value="lecture">Лекция</option>
+            <option value="kmb">КМБ (Курс молодого бойца)</option>
+            <option value="standards">Нормативы</option>
+            <option value="exam">Экзамен</option>
+          </select></label>
+        </div>
+
+        <div id="lecturesList" class="lecture-card-grid"><div class="placeholder-box">Загрузка...</div></div>
+      </div>
+    </section>
+
+    <section id="lectureReaderPage" class="internal-page">
+      <div class="card section lecture-reader-card">
+        <div class="section-header">
+          <div>
+            <h2 id="lectureReaderTitle">Лекция</h2>
+            <p id="lectureReaderMeta">Материал для чтения.</p>
+          </div>
+          <div class="header-actions">
+            <a class="secondary-btn route-link" href="#/internal/lecturesPage">Назад к лекциям</a>
+            <button class="primary-btn nav-officer hidden" id="editCurrentLectureBtn" type="button">Редактировать</button>
+          </div>
+        </div>
+        <article id="lectureReaderContent" class="lecture-reader-content">
+          <div class="placeholder-box">Выбери лекцию из списка.</div>
+        </article>
+      </div>
+    </section>
+
+    
+    <section id="statutePage" class="internal-page">
+      <div class="card section">
+        <div class="section-header">
+          <div>
+            <h2>Устав</h2>
+            <p>Здесь будет внутренний устав гвардии.</p>
+          </div>
+          <span class="badge gray">пустая страница</span>
+        </div>
+        <div class="placeholder-box">Раздел пока пустой.</div>
+      </div>
+    </section>
+
+<section id="mePage" class="internal-page">
+      <div class="card section">
+        <div class="section-header">
+          <div><h2>Информация обо мне</h2><p>Данные текущего бойца из базы.</p></div>
+          <span class="badge gray" id="meRoleBadge">профиль</span>
+        </div>
+        <div id="meInfoBox" class="profile-grid"><div class="placeholder-box">Загрузка...</div></div>
+      </div>
+    </section>
+
+    <section id="violationsPage" class="internal-page">
+      <div class="card section">
+        <div class="section-header">
+          <div>
+            <h2>Нарушения</h2>
+            <p>Раздел нарушений Гвардии. Пока страница доступна только внутреннему разделу Гвардии.</p>
+          </div>
+          <span class="badge gray">в разработке</span>
+        </div>
+
+        <div class="placeholder-box">
+          Здесь будет система фиксации и просмотра нарушений. Рапорты с сайта удалены, так как теперь они реализованы на сервере.
+        </div>
+      </div>
+    </section>
+
+    <section id="complaintsPage" class="internal-page">
+      <div class="card section">
+        <div class="section-header">
+          <div><h2>Жалобы</h2><p>Просмотр и обработка жалоб по правам подразделения.</p></div>
+          <div class="header-actions">
+            <button class="primary-btn avk-only hidden" id="openComplaintCreateBtn" type="button">Создать жалобу</button>
+            <span class="badge gray">внутренне</span>
+          </div>
+        </div>
+        <div class="filter-bar search-filter-grid single-search-grid">
+          <label>Поиск по бойцу <input id="complaintSearch" type="search" placeholder="Имя бойца или заявителя" /></label>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Дата</th><th>Кто подал</th><th>На кого</th><th>Тип</th><th>Описание</th><th>Статус</th><th>Назначена</th><th>Действие</th></tr></thead>
+            <tbody id="internalComplaintsTableBody"><tr><td colspan="8">Загрузка...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="internalSchedulePage" class="internal-page">
+      <div class="card section">
+        <div class="section-header">
+          <div><h2>Расписание</h2><p>Общее расписание и расписание подразделения.</p></div>
+          <button class="icon-btn sergeant-only hidden" id="openScheduleModalBtn" type="button" title="Добавить запись">+</button>
+        </div>
+        <div class="filter-bar schedule-filter-grid">
+          <label>Тип <select id="internalScheduleScopeFilter"><option value="available">Доступное мне</option><option value="general">Общее</option><option value="division">Подразделение</option></select></label>
+          <label>Период с <input id="internalScheduleFrom" type="date" /></label>
+          <label>по <input id="internalScheduleTo" type="date" /></label>
+          <button class="secondary-btn" id="refreshInternalScheduleBtn" type="button">Обновить</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Тип</th><th>Подразделение</th><th>Начало</th><th>Конец</th><th>Название</th><th>Описание</th></tr></thead>
+            <tbody id="internalScheduleTableBody"><tr><td colspan="6">Загрузка...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="logsPage" class="internal-page">
+      <div class="card section">
+        <div class="section-header">
+          <div><h2>Логи</h2><p>Кто что добавил, изменил, удалил или не одобрил.</p></div>
+          <button class="secondary-btn" id="refreshLogsBtn" type="button">Обновить</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Дата</th><th>Кто</th><th>Действие</th><th>Раздел</th><th>Подробности</th></tr></thead>
+            <tbody id="logsTableBody"><tr><td colspan="5">Загрузка...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div><strong>Гвардия</strong><br />Портал гвардии The Outer Rim</div>
+    <div>Разработано<br /><strong>LCPL CS-026/04-0186 Director</strong></div>
+  </div>
+</footer>
+
+
+<div id="createFighterModal" class="modal-wrap hidden">
+  <div class="modal wide-modal fighter-editor-modal">
+    <div class="section-header modal-header-tight">
+      <div>
+        <h2>Создать бойца</h2>
+        <p>Форма создания бойца.</p>
+      </div>
+      <button class="secondary-btn small-btn" id="closeCreateFighterModalBtn" type="button">Закрыть</button>
+    </div>
+    <form class="form-grid" id="createFighterForm">
+          <label>Тип записи <select name="fighter_type" id="fighterTypeSelect" required><option value="clone">Клон</option><option value="mercenary">Наёмник</option></select></label>
+          <label>Звание <select name="rank_code" id="rankSelect" required><option value="REC">REC — Рекрут</option>
+<option value="PVT">PVT — Рядовой</option>
+<option value="PV2">PV2 — Рядовой 2-го класса</option>
+<option value="PV1">PV1 — Рядовой 1-го класса</option>
+<option value="SPC">SPC — Специалист</option>
+<option value="LCPL" selected>LCPL — Младший капрал</option>
+<option value="CPL">CPL — Капрал</option>
+<option value="SGT">SGT — Сержант</option>
+<option value="SFC">SFC — Сержант 1-го класса</option>
+<option value="MSG">MSG — Мастер-сержант</option>
+<option value="JLT">JLT — Младший лейтенант</option>
+<option value="LT">LT — Лейтенант</option>
+<option value="SLT">SLT — Старший лейтенант</option>
+<option value="CPT">CPT — Капитан</option>
+<option value="MAJ">MAJ — Майор</option>
+<option value="CO">CO — Командор</option>
+<option value="SCO">SCO — Старший командор</option>
+<option value="MCO">MCO — Маршал-командор</option></select></label>
+
+          <div class="full-row form-subtitle clone-only">Данные клона</div>
+          <label class="clone-only">Тип бойца <select name="clone_type" id="cloneTypeInput"><option value="CS">CS</option><option value="CT">CT</option><option value="CC">CC</option></select></label>
+          <label class="clone-only">День вступления <input name="joined_day" id="joinedDayInput" type="number" min="1" max="31" value="26" /></label>
+          <label class="clone-only">Месяц вступления <input name="joined_month" id="joinedMonthInput" type="number" min="1" max="12" value="4" /></label>
+          <label class="clone-only">Номер бойца <input name="trooper_number" id="trooperNumberInput" value="0186" pattern="[0-9]{4}" /></label>
+          <label class="clone-only">Позывной <input name="callsign" id="callsignInput" value="Director" /></label>
+
+          <div class="full-row form-subtitle mercenary-only hidden">Данные наёмника</div>
+          <label class="mercenary-only hidden">Фамилия <input name="last_name" id="lastNameInput" placeholder="Можно оставить пустым" /></label>
+          <label class="mercenary-only hidden">Имя <input name="first_name" id="firstNameInput" placeholder="Можно оставить пустым" /></label>
+
+          <label class="clone-only">Подразделение <select name="division_id" id="divisionSelect"></select></label>
+          <label class="clone-only">Специализация <select name="specialization_id" id="specializationSelect"></select></label>
+
+          <label>Роль на сайте
+            <select name="site_role">
+              <option value="enlisted">Рядовой состав</option>
+              <option value="sergeant">Сержантский состав</option>
+              <option value="officer">Офицерский состав</option>
+              <option value="senior_officer">Старший офицерский состав</option>
+            </select>
+          </label>
+          <label class="owner-only hidden">Вторая роль
+            <select name="admin_role" id="createAdminRoleSelect"><option value="false">Нет</option><option value="true">Администратор</option></select>
+          </label>
+          <label>Статус доступа <select name="account_status"><option value="active">Активен</option><option value="pending">Ожидает одобрения</option><option value="blocked">Заблокирован</option></select></label>
+          <label>Лицензия <select name="license_type" id="createLicenseType"><option value="none">Нет лицензии</option><option value="medic">Медик</option><option value="pilot">Пилот</option><option value="engineer">Инженер</option></select></label>
+          <label id="createLicenseExpiryWrap" class="hidden">Лицензия до <input name="license_expires_on" id="createLicenseExpiry" type="date" /></label>
+          <label>Временный пароль <input name="password" type="password" minlength="8" required /></label>
+
+          <div class="full-row preview-box">
+            <strong>Предпросмотр</strong>
+            <div>Логин: <span id="previewLogin">CS-026/04-0186</span></div>
+            <div>Полное имя: <span id="previewFullName">LCPL CS-026/04-0186 Director</span></div>
+            <div>Техническая почта: <span id="previewEmail">будет создана автоматически</span></div>
+          </div>
+
+          <div class="full-row"><button class="primary-btn" type="submit">Создать бойца</button><span id="createFighterStatus" class="form-status"></span></div>
+        </form>
+  </div>
+</div>
+
+
+<div id="fighterViewModal" class="modal-wrap hidden">
+  <div class="modal wide-modal fighter-view-modal">
+    <div class="section-header modal-header-tight">
+      <div>
+        <h2 id="fighterViewTitle">Карточка бойца</h2>
+        <p id="fighterViewSubtitle">Информация о бойце.</p>
+      </div>
+      <button class="secondary-btn small-btn" id="closeFighterViewBtn" type="button">Закрыть</button>
+    </div>
+
+    <div id="fighterViewInfo" class="profile-grid"></div>
+
+    <div class="modal-actions full-row fighter-view-actions">
+      <button class="primary-btn nav-officer hidden" id="fighterViewEditBtn" type="button">Редактировать</button>
+    </div>
+
+    <div id="fighterEditPanel" class="hidden">
+      <h3>Редактирование бойца</h3>
+      <form class="form-grid" id="editFighterForm">
+          <label>Звание <select id="editRankSelect" name="rank_code"><option value="REC">REC — Рекрут</option>
+<option value="PVT">PVT — Рядовой</option>
+<option value="PV2">PV2 — Рядовой 2-го класса</option>
+<option value="PV1">PV1 — Рядовой 1-го класса</option>
+<option value="SPC">SPC — Специалист</option>
+<option value="LCPL">LCPL — Младший капрал</option>
+<option value="CPL">CPL — Капрал</option>
+<option value="SGT">SGT — Сержант</option>
+<option value="SFC">SFC — Сержант 1-го класса</option>
+<option value="MSG">MSG — Мастер-сержант</option>
+<option value="JLT">JLT — Младший лейтенант</option>
+<option value="LT">LT — Лейтенант</option>
+<option value="SLT">SLT — Старший лейтенант</option>
+<option value="CPT">CPT — Капитан</option>
+<option value="MAJ">MAJ — Майор</option>
+<option value="CO">CO — Командор</option>
+<option value="SCO">SCO — Старший командор</option>
+<option value="MCO">MCO — Маршал-командор</option></select></label>
+          <label>Статус бойца <select name="status" id="editStatusSelect"><option value="active">Активен</option><option value="reserve">Резерв</option><option value="suspended">Отстранён</option><option value="dismissed">Уволен</option><option value="deleted">Удалён</option></select></label>
+          <label>Подразделение <select id="editDivisionSelect" name="division_id"></select></label>
+          <label>Специализация <select id="editSpecializationSelect" name="specialization_id"></select></label>
+          <label>Роль на сайте <select id="editSiteRoleSelect" name="site_role"><option value="enlisted">Рядовой состав</option><option value="sergeant">Сержантский состав</option><option value="officer">Офицерский состав</option><option value="senior_officer">Старший офицерский состав</option></select></label>
+          <label class="owner-only hidden">Вторая роль
+            <select id="editAdminRoleSelect" name="admin_role"><option value="false">Нет</option><option value="true">Администратор</option></select>
+          </label>
+          <label>Статус доступа <select id="editAccountStatusSelect" name="account_status"><option value="active">Активен</option><option value="pending">Ожидает одобрения</option><option value="blocked">Заблокирован</option></select></label>
+          <label>Лицензия <select id="editLicenseType" name="license_type"><option value="none">Нет лицензии</option><option value="medic">Медик</option><option value="pilot">Пилот</option><option value="engineer">Инженер</option></select></label>
+          <label id="editLicenseExpiryWrap" class="hidden">Лицензия до <input id="editLicenseExpiry" name="license_expires_on" type="date" /></label>
+          <div class="full-row"><button class="primary-btn" type="submit">Сохранить изменения</button><span id="editFighterStatus" class="form-status"></span></div>
+        </form>
+      <div class="modal-actions">
+        <button class="secondary-btn" id="cancelFighterEditBtn" type="button">Отмена редактирования</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="loginModal" class="modal-wrap hidden">
+  <div class="modal">
+    <h2>Вход в базу</h2>
+    <p>Вводи игровой логин, например <strong>CS-026/04-0186</strong>.</p>
+    <label>Логин <input id="loginInput" autocomplete="username" /></label>
+    <label>Пароль <input id="passwordInput" type="password" autocomplete="current-password" /></label>
+    <div class="modal-actions"><button class="primary-btn" id="submitLoginBtn" type="button">Войти</button><button class="secondary-btn" onclick="closeLogin()" type="button">Отмена</button><button class="secondary-btn" id="testConnectionBtn" type="button">Проверить связь</button></div>
+    <div id="loginStatus" class="form-status"></div>
+  </div>
+</div>
+
+
+<div id="reportViewModal" class="modal-wrap hidden">
+  <div class="modal wide-modal report-view-modal">
+    <div class="section-header modal-header-tight">
+      <div>
+        <h2 id="reportViewTitle">Просмотр рапорта</h2>
+        <p id="reportViewSubtitle">Полная карточка рапорта.</p>
+      </div>
+      <button class="secondary-btn small-btn" id="closeReportViewBtn" type="button">Закрыть</button>
+    </div>
+
+    <form class="form-grid" id="editReportForm">
+      <label>Тип рапорта <input id="viewReportType" disabled /></label>
+      <label id="viewReportSubtypeWrap">Подтип <input id="viewReportSubtype" disabled /></label>
+      <label id="viewReportOperationWrap" class="hidden">Название операции <input name="operation_name" id="viewReportOperationName" disabled /></label>
+      <label id="viewReportDateLabel">Дата <input name="report_date" id="viewReportDate" type="date" disabled /></label>
+      <label id="viewReportCommanderLabel">Командовал / проводил <input name="commander" id="viewReportCommander" disabled /></label>
+      <label>Статус <input id="viewReportStatus" disabled /></label>
+      <label>Внёс рапорт <input id="viewReportAuthor" disabled /></label>
+      <div class="full-row">
+        <label id="viewReportSquadTitle">Состав</label>
+        <div id="viewReportSquadGrid" class="report-squad-grid"></div>
+        <textarea name="squad" id="viewReportSquad" class="hidden" disabled></textarea>
+      </div>
+      <label class="full-row" id="viewReportDescriptionWrap"><span id="viewReportDescriptionLabel">Описание</span> <textarea name="description" id="viewReportDescription" disabled></textarea></label>
+      <label class="full-row" id="viewReportResultWrap"><span id="viewReportResultLabel">Итог</span> <textarea name="result" id="viewReportResult" disabled></textarea></label>
+
+      <div class="modal-actions full-row">
+        <button class="primary-btn officer-only" id="editReportBtn" type="button">Редактировать</button>
+        <button class="primary-btn hidden" id="saveReportEditBtn" type="submit">Сохранить</button>
+        <button class="secondary-btn hidden" id="cancelReportEditBtn" type="button">Отмена редактирования</button>
+        <span id="reportViewStatus" class="form-status"></span>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div id="lectureEditorModal" class="modal-wrap hidden">
+  <div class="modal wide-modal lecture-editor-modal">
+    <div class="section-header modal-header-tight">
+      <div>
+        <h2 id="lectureEditorTitle">Создать лекцию</h2>
+        <p>Можно написать текст вручную, загрузить файл или добавить изображения.</p>
+      </div>
+      <button class="secondary-btn small-btn" id="closeLectureEditorBtn" type="button">Закрыть</button>
+    </div>
+
+    <form id="lectureEditorForm" class="form-grid">
+      <label>Название лекции <input name="title" id="lectureTitleInput" required /></label>
+      <label>Тип лекции <select name="lecture_type" id="lectureTypeInput">
+        <option value="lecture">Лекция</option>
+        <option value="kmb">КМБ (Курс молодого бойца)</option>
+        <option value="standards">Нормативы</option>
+        <option value="exam">Экзамен</option>
+      </select></label>
+
+      <div class="full-row lecture-source-panel">
+        <div class="lecture-source-grid">
+          <label>Загрузить файл
+            <input id="lectureFileInput" type="file" accept=".txt,.md,.html,.docx,.pdf,.png,.jpg,.jpeg,.webp" />
+          </label>
+          <label>Google Docs / источник
+            <input id="lectureSourceUrlInput" name="source_url" type="url" placeholder="Ссылка на Google Docs или источник" />
+          </label>
+        </div>
+        <small class="muted-note">
+          TXT/HTML/MD читаются сразу. DOCX и PDF сайт попробует преобразовать в браузере. Если документ сложный, текст можно вставить вручную.
+        </small>
+      </div>
+
+      <div class="full-row lecture-toolbar" id="lectureToolbar">
+        <button type="button" data-command="bold"><b>Ж</b></button>
+        <button type="button" data-command="italic"><i>К</i></button>
+        <button type="button" data-command="underline"><u>Ч</u></button>
+        <button type="button" data-command="insertUnorderedList">Список</button>
+        <button type="button" data-command="formatBlock" data-value="h2">Заголовок</button>
+        <button type="button" data-command="formatBlock" data-value="p">Текст</button>
+        <button type="button" id="insertLectureImageBtn">Картинка</button>
+        <button type="button" id="clearLectureFormatBtn">Очистить стиль</button>
+      </div>
+
+      <div class="full-row">
+        <label>Текст лекции</label>
+        <div id="lectureContentEditor" class="lecture-content-editor" contenteditable="true"></div>
+        <textarea name="content" id="lectureContentInput" class="hidden"></textarea>
+      </div>
+
+      <div class="modal-actions full-row">
+        <button class="primary-btn" type="submit">Сохранить</button>
+        <button class="secondary-btn" id="cancelLectureEditorBtn" type="button">Отмена</button>
+        <span id="lectureEditorStatus" class="form-status"></span>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div id="complaintCreateModal" class="modal-wrap hidden">
+  <div class="modal wide-modal">
+    <div class="section-header modal-header-tight">
+      <div>
+        <h2>Создать жалобу</h2>
+        <p>Форма доступна Гвардии во внутреннем разделе.</p>
+      </div>
+      <button class="secondary-btn small-btn" id="closeComplaintCreateBtn" type="button">Закрыть</button>
+    </div>
+
+    <form class="form-grid" id="complaintCreateForm">
+      <label class="full-row">На кого жалоба
+        <input id="complaintTargetInput" name="target_name" list="fightersDatalist" placeholder="Начни вводить имя бойца" required />
+      </label>
+      <label>Тип жалобы
+        <select name="complaint_type">
+          <option value="Нарушение устава">Нарушение устава</option>
+          <option value="Нарушение субординации">Нарушение субординации</option>
+          <option value="Нарушение правил сервера">Нарушение правил сервера</option>
+          <option value="Жалоба на действие бойца">Жалоба на действие бойца</option>
+          <option value="Прочее">Прочее</option>
+        </select>
+      </label>
+      <label>Доказательства
+        <select name="evidence_type">
+          <option value="personal">Предоставить лично</option>
+          <option value="video_link">Ссылка на видео</option>
+          <option value="screenshots_link">Ссылка/ссылки на скриншоты</option>
+        </select>
+      </label>
+      <label class="full-row">Ссылка на доказательства <input name="evidence_link" placeholder="Можно оставить пустым" /></label>
+      <label class="full-row" id="reportDescriptionWrap"><span id="reportDescriptionLabel">Описание</span> <textarea name="description" id="reportDescriptionInput" required></textarea></label>
+      <div class="modal-actions full-row">
+        <button class="primary-btn" type="submit">Создать жалобу</button>
+        <button class="secondary-btn" id="cancelComplaintCreateBtn" type="button">Отмена</button>
+        <span id="complaintCreateStatus" class="form-status"></span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="scheduleModal" class="modal-wrap hidden">
+  <div class="modal wide-modal">
+    <h2>Добавить запись расписания</h2>
+    <form class="form-grid" id="scheduleForm">
+      <label>Тип <select name="schedule_scope" id="scheduleScopeInput"><option value="general">Общее</option><option value="division">Подразделение</option></select></label>
+      <label>Подразделение <select name="division_id" id="scheduleDivisionInput"></select></label>
+      <label>Начало <input name="starts_at" type="datetime-local" required /></label>
+      <label>Конец <input name="ends_at" type="datetime-local" /></label>
+      <label class="full-row">Название <input name="title" required /></label>
+      <label class="full-row">Описание <textarea name="description"></textarea></label>
+      <div class="modal-actions full-row"><button class="primary-btn" type="submit">Сохранить</button><button class="secondary-btn" id="closeScheduleModalBtn" type="button">Отмена</button><span id="scheduleStatus" class="form-status"></span></div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js?v=51"></script>
+
+
+<div id="promotionRequirementModal" class="modal-wrap hidden">
+  <div class="modal wide-modal promotion-editor-modal">
+    <div class="section-header modal-header-tight">
+      <div>
+        <h2>Редактировать требование</h2>
+        <p>Изменение доступно офицерам и администраторам Гвардии.</p>
+      </div>
+      <button class="secondary-btn small-btn" id="closePromotionRequirementModalBtn" type="button">Закрыть</button>
+    </div>
+
+    <form class="form-grid" id="promotionRequirementForm">
+      <label class="full-row">Повышение <input id="promotionRequirementTitleInput" disabled /></label>
+      <label class="full-row">Требования <textarea id="promotionRequirementTextInput" required></textarea></label>
+      <div class="modal-actions full-row">
+        <button class="primary-btn" type="submit">Сохранить</button>
+        <button class="secondary-btn" id="cancelPromotionRequirementEditBtn" type="button">Отмена</button>
+        <span id="promotionRequirementStatus" class="form-status"></span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<datalist id="fightersDatalist"></datalist>
+</body>
+</html>
