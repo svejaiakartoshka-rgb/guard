@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Гвардия — портал The Outer Rim</title>
+  <link rel="icon" href="./favicon-ds.png" type="image/png" />
+  <link rel="stylesheet" href="./style.css?v=88" />
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#homePage" aria-label="Главная">
+      <img src="./header-ds-logo.png" alt="Логотип Дипломатической службы" class="brand-logo" />
+      <span><strong>Дипломатическая служба</strong><small>Портал гвардии The Outer Rim</small></span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Открыть меню">☰</button>
+    <nav class="top-nav" id="topNav" aria-label="Навигация">
+      <a class="nav-btn active" href="#homePage" data-nav="homePage">Главная</a>
+      <a class="nav-btn" href="#statutePage" data-nav="statutePage">Устав</a>
+      <a class="nav-btn" href="#regulationsPage" data-nav="regulationsPage">Регламенты</a>
+      <a class="nav-btn" href="#promotionsPage" data-nav="promotionsPage">Система повышения</a>
+      <a class="nav-btn" href="#leisurePage" data-nav="leisurePage">Досуговые мероприятия</a>
+      <a class="nav-btn" href="#attestationPage" data-nav="attestationPage">Аттестация</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page-shell">
+  <section id="homePage" class="page active">
+    <div class="home-guard-card">
+      <div class="home-guard-copy">
+        <h1>Дипломатическая служба <span>(Гвардия)</span></h1>
+        <p>
+          Дипломатическая служба (Гвардия) — это специализированное подразделение ВАР,
+          предназначенное для обеспечения внутренней безопасности, поддержания порядка,
+          охраны важных объектов, контроля доступа и сопровождения высокопоставленных лиц Республики.
+        </p>
+      </div>
+
+      <div class="home-guard-visual">
+        <img
+          src="./diplomatic-service-guard.jpg"
+          alt="Боец Дипломатической службы"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section id="statutePage" class="page"><div id="statuteMount"></div></section>
+  <section id="regulationsPage" class="page"><div id="regulationsMount"></div></section>
+  <section id="promotionsPage" class="page"><div id="promotionsMount"></div></section>
+  <section id="leisurePage" class="page"><div id="leisureMount"></div></section>
+  <section id="attestationPage" class="page"><div id="attestationMount"></div></section>
+  <section id="dynamicPage" class="page"><div id="dynamicMount"></div></section>
+</main>
+
+<footer class="site-footer">
+  <div><strong>Дипломатическая служба</strong><br />Портал гвардии The Outer Rim</div>
+</footer>
+
+<script src="./app.js?v=88"></script>
+</body>
+</html>
